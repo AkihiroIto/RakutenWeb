@@ -1,5 +1,6 @@
 <ul class="media-list">
-           <%  @items.first(10).each do |item| %>
+      <% if @items.present? %>
+           <%  @items.each do |item| %>
                <div class="well">
                  <li class="media">
           
@@ -20,5 +21,6 @@
                  </li>
                 </div>
             <% end %>
+      <% end %>
 </ul>
 

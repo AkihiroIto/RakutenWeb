@@ -42,6 +42,7 @@ class TopController < ApplicationController
         #選択したカテゴリーのランキング一覧を取得する 
         #@items = RakutenWebService::Ichiba::Genre[params[:categoryid]].ranking
         @items = RakutenWebService::Ichiba::Item.ranking(:genreId => params[:categoryid])
+        @janru = get_subcategory(params[:categoryid])
     end
     
     #選択商品詳細画面表示アクション 
@@ -77,4 +78,11 @@ class TopController < ApplicationController
         #全てのルートカテゴリー一覧を取得する 
          @janru = RakutenWebService::Ichiba::Genre.root
     end
+    
+    private
+    def get_subcategory(categoryid)
+        #サブカテゴリー一覧を取得する 
+        RakutenWebService::Ichiba::Genre[categoryid]
+    end
+    
 end
