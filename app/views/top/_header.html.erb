@@ -1,0 +1,13 @@
+<div class="cintainer">
+    <div class="jumbotron">
+        <h1> <%= link_to "RakutenWeb" , root_path %></h1>
+        <div>
+            <%= form_tag({controller: "top" , action: "index"} , {:method => "get"}) do %>
+            気になるキーワードはまずここから検索⇨
+               <%= text_field_tag :search %>
+               <%= submit_tag "検索" %>
+            <% end %>
+        </div>
+    </div>
+    
+</div>

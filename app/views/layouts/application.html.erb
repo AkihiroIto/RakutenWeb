@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rakutenweb</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+　　  <div class="container"> 
+　　  <%= render 'header' %>
+　　   <div class="row">
+　　     
+　　       <div class="col-xs-3">
+　　         <div class="sidebar">
+　　            <%= render 'sidebar' %>
+　　         </div>
+　　       </div>
+　　    
+　　       <div class="col-xs-9">
+　　         <div class="main">
+　　            <%= yield %>
+　　         </div>
+　　       </div>     
+　
+　　   </div>
+　　   
+　　   
+　　   <div class="footer">
+　　     <%= render 'footer' %>
+　　   </div>
+　　 </div>
+
+
+</body>
+</html>

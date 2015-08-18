@@ -1,0 +1,17 @@
+
+<p><%= link_to "商品一覧に戻る" , itemlist_path($category_id) %></p>
+<hr>
+
+<% @item.each do |item| %>
+
+    <p><h3><%= item['itemName'] %></h3></p>
+    <% imgurl = item['mediumImageUrls'].first["imageUrl"] %>
+    <P><img src=<%= imgurl %> alt='' width='200px' height='300px'></P>
+    <p><%= item['catchcopy'] %></p>
+    <p>商品価格：<%= item['itemPrice'] %>円</p>
+    <p>商品詳細</p>
+    <p><%= item['itemCaption'] %></p>
+
+<% end %>
+ <hr>
+    <%= link_to "商品一覧に戻る" , itemlist_path($category_id) %>

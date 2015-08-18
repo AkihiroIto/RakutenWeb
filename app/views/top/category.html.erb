@@ -1,0 +1,8 @@
+<h1>カテゴリー一覧 </h1>
+
+
+    <% @janru.children.each do | g | %>
+       <p><h4><%= link_to g.name , itemlist_path(g.id)  %></h4></p>
+    <% end %>
+
+    <%= link_to "トップに戻る" , root_path %>
