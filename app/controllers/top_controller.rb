@@ -10,7 +10,7 @@ class TopController < ApplicationController
         #キーワードを指定して商品一覧を取得する
         if params[:search].present?
             $keyword = params[:search]
-            @items = RakutenWebService::Ichiba::Item.search(:keyword =>  $keyword ,:page => 1)
+            @items = RakutenWebService::Ichiba::Item.search(:keyword =>  $keyword ,:page => '1')
             @title_info = "#{$keyword}の検索結果"
         else
             #総合ランキング順に商品データ (1-10)を取得する
@@ -39,10 +39,10 @@ class TopController < ApplicationController
         #選択したカテゴリーの商品一覧を取得する 
         #@janru_items = RakutenWebService::Ichiba::Item.search(:genreId => params[:categoryid])
         
-        #選択したカテゴリーのランキング一覧を取得する 
-        #@items = RakutenWebService::Ichiba::Genre[params[:categoryid]].ranking
         @items = RakutenWebService::Ichiba::Item.ranking(:genreId => params[:categoryid])
         @janru = get_subcategory(params[:categoryid])
+        p @janru
+        p @items
     end
     
     #選択商品詳細画面表示アクション 
@@ -64,6 +64,8 @@ class TopController < ApplicationController
                                                          :page => params[:page])
         #パラメータで渡されたカテゴリーコードのカテゴリー名を取得する 
         @janru_name = RakutenWebService::Ichiba::Genre[params[:categoryid]].name
+        #パラメーターで渡されたカテゴリコードのサブカテゴリ一覧を取得する 
+        @janru = get_subcategory(params[:categoryid])
         render 'itemlist'
     end
     

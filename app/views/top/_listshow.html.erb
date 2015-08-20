@@ -1,6 +1,7 @@
 <ul class="media-list">
+     <% begin %>
       <% if @items.present? %>
-           <%  @items.each do |item| %>
+           <%  @items.first(30).each do |item| %>
                <div class="well">
                  <li class="media">
           
@@ -21,6 +22,15 @@
                  </li>
                 </div>
             <% end %>
+    　<% else %>
+    　  <div class="well">
+    　      <p>検索データがみつかりません</p>
+    　  </div>
       <% end %>
+    <% rescue %>
+        <div class="well">
+    　      <p>検索データがみつかりません</p>
+    　  </div>
+    <% end %>
 </ul>
 

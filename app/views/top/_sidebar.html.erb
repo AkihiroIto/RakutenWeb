@@ -1,4 +1,5 @@
-
-<% @janru.children.each do | g | %>
-    <p><%= link_to g.name , itemlist_path(g.id) ,{  :class =>  "btn btn-default btn-block" } %></p>
+<% if @janru.present? %>
+  <% @janru.children.each do | g | %>
+      <p><%= link_to g.name , itemlist_path(g.id) ,{  :class =>  "btn btn-default btn-block" } %></p>
+  <% end %>
 <% end %>
