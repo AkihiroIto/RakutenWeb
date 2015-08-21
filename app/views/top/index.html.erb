@@ -2,17 +2,23 @@
     <div class="panel-heading">
         <% if $keyword.present? %>
           <h2 class="panel-title"><%= @title_info %></h2>
+             <%= render 'searchlink' %>
         <% else %>
           <h2 class="panel-title"><%= @title_info %></h2>
              <%= render 'toppagelink' %>
         <% end %>
     </div>
     <div class="panel-body">
-        <%= render 'listshow' %>
+    	<% if  @view_sw %>
+           <%= render 'listshowjson' %>
+        <% else %>
+           <%= render 'listshow' %>
+        <% end %>
     </div>
     <div class="panel-footer">
         <% if $keyword.present? %>
            <%= link_to " Homeに戻る" , root_path %>
+           <%= render 'searchlink' %>
         <% else %>
            <%= render 'toppagelink' %>
         <% end %>

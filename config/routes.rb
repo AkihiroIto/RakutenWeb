@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'itemshow/:itemid' => 'top#itemshow' , as: 'itemshow'
   get 'index/:page' => 'top#rankingshow' , as: 'rankingshow'
   get 'itemlist/:categoryid/:page' => 'top#caterankshow' , as: 'caterankshow'
-  get 'searchshow/:page' => 'top#searchshow' , as: 'searchshow'
+  get 'searchshow/:keyword/:page' => 'top#searchshow' , as: 'searchshow'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

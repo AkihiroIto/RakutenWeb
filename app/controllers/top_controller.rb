@@ -1,16 +1,20 @@
 class TopController < ApplicationController
     require 'rakuten_web_service'
     before_action :get_categoryname, only: [:index , :category , :itemlist , 
-                                            :itemshow , :rankingshow , :caterankshow]
+                                            :itemshow , :rankingshow , :caterankshow , :searchshow]
     #トップページ商品一覧表示アクション 
     def index
         #ジャンルコードを指定して商品一覧を取得する 
          #@items = RakutenWebService::Ichiba::Item.search(:genreId => '100316')
-         
+        
+        #表示フラグ（キーワード検索時は JSONデータを表示する） 
+        @view_sw = nil
         #キーワードを指定して商品一覧を取得する
         if params[:search].present?
             $keyword = params[:search]
-            @items = RakutenWebService::Ichiba::Item.search(:keyword =>  $keyword ,:page => '1')
+            @view_sw = true
+            get_searchitem($keyword,1)
+            #@items = RakutenWebService::Ichiba::Item.search(:keyword =>  $keyword ,:page => '1')
             @title_info = "#{$keyword}の検索結果"
         else
             #総合ランキング順に商品データ (1-10)を取得する
@@ -71,9 +75,13 @@ class TopController < ApplicationController
     
     #キーワード検索表示順位選択時アクション 
     def searchshow
-        @items = RakutenWebService::Ichiba::Item.search(:keyword =>  $keyword ,:page => params[:page])
+        #@items = RakutenWebService::Ichiba::Item.search(:keyword =>  $keyword ,:page => params[:page])
+        get_searchitem($keyword,params[:page])
         @title_info = "#{$keyword}の検索結果"
+        @view_sw = true
+        render 'index'
     end
+    
     
     private
     def get_categoryname
@@ -87,4 +95,24 @@ class TopController < ApplicationController
         RakutenWebService::Ichiba::Genre[categoryid]
     end
     
+    #キーワード検索時データ取得メソッド 
+    private
+    def get_searchitem(keyword,page_no)
+    	httpClient = HTTPClient.new
+
+        @jsonData = nil
+        @errorMeg = nil
+
+        begin
+          data = httpClient.get_content('https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222', {
+              'applicationId' => APP_ID,
+              'affiliateId'   => AFF_ID,
+              'keyword'       => keyword,
+              'page'          => page_no
+          })
+          @jsonData = JSON.parse data
+        rescue HTTPClient::BadResponseError => e
+        rescue HTTPClient::TimeoutError => e
+        end
+    end
 end

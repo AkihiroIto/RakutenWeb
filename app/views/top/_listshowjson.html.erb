@@ -1,0 +1,36 @@
+<ul class="media-list">
+     <% begin %>
+      <% if @jsonData.present? %>
+           <%  @jsonData['Items'].each do |item| %>
+               <div class="well">
+                 <li class="media">
+          
+                    <div class="media-left">
+                      <% if item['Item']['mediumImageUrls'].present? %>
+                            <% imgurl = item['Item']['mediumImageUrls'].first["imageUrl"] %>
+                            <%= link_to image_tag(imgurl) , item['Item']['itemUrl'] , target: '_blank'%>
+                      <% end %>
+                    </div>
+        
+                    <div class="media-body">
+                    <h4 class="media-heading"><%= link_to item['Item']['itemName'] , item['Item']['itemUrl'] ,target: '_blank'%></h4>
+                    <%= item['Item']['catchcopy'] %>
+                    <p style="text-align: right;">
+                        <%= link_to "商品の詳細を詳しく見る" , item['Item']['itemUrl'] , { :class => "btn btn-info" , :target=>["_blank"]} %>
+                    </p>
+                    </div>
+                 </li>
+                </div>
+            <% end %>
+    　<% else %>
+    　  <div class="well">
+    　      <p>検索データがみつかりません</p>
+    　  </div>
+      <% end %>
+    <% rescue %>
+        <div class="well">
+    　      <p>検索データがみつかりません</p>
+    　  </div>
+    <% end %>
+</ul>
+
