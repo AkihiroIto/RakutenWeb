@@ -18,7 +18,7 @@ class TopController < ApplicationController
             @title_info = "#{$keyword}の検索結果"
         else
             #総合ランキング順に商品データ (1-10)を取得する
-             @title_info = "リアルタイムランキング BEST30"
+             @title_info = "リアルタイムランキング"
              $keyword = nil
              @items = RakutenWebService::Ichiba::Item.ranking(:page => 1)
         end
@@ -58,7 +58,7 @@ class TopController < ApplicationController
     #総合ランキング表示順位選択時アクション 
     def rankingshow
         @items = RakutenWebService::Ichiba::Item.ranking(:page => params[:page])
-        @title_info = "リアルタイムランキング BEST30"
+        @title_info = "リアルタイムランキング"
         render 'index'
     end
     
