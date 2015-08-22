@@ -1,5 +1,7 @@
 <% if @janru.present? %>
+  <p><%= link_to "Topに戻る" , root_path ,{  :class =>  "btn btn-info btn-block" } %></p>
   <% @janru.children.each do | g | %>
       <p><%= link_to g.name , itemlist_path(g.id) ,{  :class =>  "btn btn-default btn-block" } %></p>
   <% end %>
+  <p><%= link_to "Topに戻る" , root_path ,{  :class =>  "btn btn-info btn-block" } %></p>
 <% end %>

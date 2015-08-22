@@ -36,7 +36,6 @@ class TopController < ApplicationController
         
         #パラメータで渡されたカテゴリーコードのカテゴリー名を取得する 
         @janru_name = RakutenWebService::Ichiba::Genre[params[:categoryid]].name
-        
         #選択したカテゴリーのサブカテゴリを取得する 
         #@janru_items = RakutenWebService::Ichiba::Genre[params[:categoryid]]
         
@@ -45,8 +44,6 @@ class TopController < ApplicationController
         
         @items = RakutenWebService::Ichiba::Item.ranking(:genreId => params[:categoryid])
         @janru = get_subcategory(params[:categoryid])
-        p @janru
-        p @items
     end
     
     #選択商品詳細画面表示アクション 
